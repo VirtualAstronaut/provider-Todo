@@ -1,7 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 class MyList extends ChangeNotifier {
-  List<String> _myList = ["boom"];
+  List<String> _myList = [];
 
   addValue(String value){
     _myList.add(value);
@@ -9,4 +11,14 @@ class MyList extends ChangeNotifier {
   }
 
   List<String> get myList => _myList;
+}
+class RandomWords {
+  List<String> _words = ['Write Your Next Goal',
+  'Finish What You Added',
+  'Time To Work',
+  'Do not Procrastinate'];
+
+  getRandomWord(){
+    return _words[Random().nextInt(4)];
+  }
 }
