@@ -19,11 +19,17 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var MylIstVar = Provider.of<MyList>(context);
+    var checked = false;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blueAccent,
+        title: Text('ToDo App'),
+      ),
       floatingActionButton: FabAddTask(),
       body: Column(
         children: [
           Expanded(
+            flex: 4,
               child: ChangeNotifierProvider<MyList>(
             create: (BuildContext context) => MyList(),
             child: MylIstVar.myList != null
@@ -31,11 +37,25 @@ class _HomePageState extends State<HomePage> {
                     itemCount: MylIstVar.myList.length,
                     itemBuilder: (con, index) {
                       return ListTile(
-                        title: Text(MylIstVar.myList[index]),
-                      );
+                          title: Text(MylIstVar.myList[index]),
+                          trailing: StatefulBuilder(builder: (con, setState) {
+                            var _showCheckBox =0.0 ;
+                            return Opacity(
+                              opacity: _showCheckBox ,
+                              child: Checkbox(
+                                value: checked,
+                                onChanged: (bool value) {
+                                  setState(() {
+                                    checked = !checked;
+                                  });
+                                },
+                              ),
+                            );
+                          }));
                     })
                 : Container(),
           )),
+          FlatButton(onPressed: (){}, child: Text('Remove'))
         ],
       ),
     );
@@ -57,7 +77,6 @@ class AddToDo extends StatelessWidget {
   final TextEditingController _todoText = TextEditingController();
   @override
   Widget build(BuildContext context) {
-
     return AlertDialog(
       title: Text('Add Todo'),
       content: TextField(
@@ -69,7 +88,7 @@ class AddToDo extends StatelessWidget {
       actions: [
         FlatButton(
             onPressed: () {
-              var myList = Provider.of<MyList>(context,listen: false);
+              var myList = Provider.of<MyList>(context, listen: false);
               myList.addValue(_todoText.text);
               Navigator.pop(context);
             },
