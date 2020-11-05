@@ -21,41 +21,64 @@ class _HomePageState extends State<HomePage> {
     var MylIstVar = Provider.of<MyList>(context);
     var checked = false;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
-        title: Text('ToDo App'),
-      ),
       floatingActionButton: FabAddTask(),
+      backgroundColor: Colors.blueAccent,
       body: Column(
         children: [
+          Container(
+            padding: EdgeInsets.all(25),
+            child: Text(
+              'To-Do List',
+              style: TextStyle(color: Colors.white, fontSize: 35),
+            ),
+            margin: EdgeInsets.only(top: 50),
+          ),
           Expanded(
-            flex: 4,
-              child: ChangeNotifierProvider<MyList>(
-            create: (BuildContext context) => MyList(),
-            child: MylIstVar.myList != null
-                ? ListView.builder(
-                    itemCount: MylIstVar.myList.length,
-                    itemBuilder: (con, index) {
-                      return ListTile(
-                          title: Text(MylIstVar.myList[index]),
-                          trailing: StatefulBuilder(builder: (con, setState) {
-                            var _showCheckBox =0.0 ;
-                            return Opacity(
-                              opacity: _showCheckBox ,
-                              child: Checkbox(
-                                value: checked,
-                                onChanged: (bool value) {
-                                  setState(() {
-                                    checked = !checked;
-                                  });
-                                },
-                              ),
-                            );
-                          }));
-                    })
-                : Container(),
-          )),
-          FlatButton(onPressed: (){}, child: Text('Remove'))
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius:
+                      BorderRadius.only(topLeft: Radius.circular(75.0)),
+                  color: Colors.white),
+              child: Column(
+                children: [
+                  Expanded(
+                      flex: 4,
+                      child: ChangeNotifierProvider<MyList>(
+                        create: (BuildContext context) => MyList(),
+                        child: MylIstVar.myList != null
+                            ? ListView.builder(
+                                padding: EdgeInsets.symmetric(horizontal: 25,vertical: 15),
+                                itemCount: MylIstVar.myList.length,
+                                itemBuilder: (con, index) {
+                                  return ListTile(
+                                      leading: CircleAvatar(
+                                          child: Text(
+                                        (index + 1).toString(),
+                                      )),
+                                      title: Text(MylIstVar.myList[index]),
+                                      trailing: StatefulBuilder(
+                                          builder: (con, setState) {
+                                        var _showCheckBox = 0.0;
+                                        return Opacity(
+                                          opacity: _showCheckBox,
+                                          child: Checkbox(
+                                            value: checked,
+                                            onChanged: (bool value) {
+                                              setState(() {
+                                                checked = !checked;
+                                              });
+                                            },
+                                          ),
+                                        );
+                                      }));
+                                })
+                            : Container(),
+                      )),
+                  FlatButton(onPressed: () {}, child: Text('Remove'))
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
