@@ -1,22 +1,31 @@
+import 'dart:core';
+import 'dart:core';
 import 'dart:math';
 
-import 'package:flutter/material.dart';
+
 import 'package:flutter/foundation.dart';
 class MyList extends ChangeNotifier {
   List<String> _myList = [];
-  addValue(String value){
-    _myList.add(value);
+  List<int>  _priority = [];
+  List<int> get priority => _priority;
+  List<String> get myList => _myList;
+
+  addValue(String task,int priority){
+    _myList.add(task);
+    _priority.add(priority);
     notifyListeners();
   }
-  List<String> get myList => _myList;
+
   removeValue(int index){
     myList.removeAt(index);
+    priority.removeAt(index);
     notifyListeners();
   }
 }
 
 class RandomWords {
-  List<String> _words = ['Write Your Next Goal',
+  List<String> _words = [
+    'Write Your Next Goal',
   'Finish What You Added',
   'Time To Work',
   'Do not Procrastinate'];
