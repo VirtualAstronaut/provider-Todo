@@ -24,7 +24,7 @@ class AddTaskScreen extends StatelessWidget {
 
           RaisedButton(
             onPressed: () {
-              
+
               Navigator.pop(context);
             },
             child: Text('Add'),

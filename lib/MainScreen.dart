@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/CustomContainers.dart';
 import 'package:flutter_app/ListHold.dart';
 import 'package:provider/provider.dart';
 
@@ -36,46 +37,11 @@ class HomePage extends StatelessWidget {
                                 horizontal: 25, vertical: 15),
                             itemCount: model.myList.length,
                             itemBuilder: (con, index) {
-                              return Container(
-                                margin: EdgeInsets.symmetric(vertical: 10),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                        padding:
-                                            EdgeInsets.symmetric(horizontal: 10),
-                                        decoration: BoxDecoration(
-                                            color: Colors.blue,
-                                            borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(10),
-                                                topRight: Radius.circular(10))),
-                                        width: MediaQuery.of(con).size.width,
-                                        height: 125,
-                                        child: Text(
-                                          model.myList[index],
-                                          style: TextStyle(
-                                              fontSize: 25, color: Colors.white),
-                                        )),
-                                    Container(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 10, vertical: 5),
-                                        decoration: BoxDecoration(
-                                            color: Colors.blue.shade800,
-                                            borderRadius: BorderRadius.only(
-                                                bottomLeft: Radius.circular(10),
-                                                bottomRight:
-                                                    Radius.circular(10))),
-                                        width: MediaQuery.of(con).size.width,
-                                        height: 35,
-                                        child: Text(
-                                          "Priority " +
-                                              model.priority[index].toString(),
-                                          style: TextStyle(
-                                              fontSize: 20, color: Colors.white),
-                                          textAlign: TextAlign.justify,
-                                        ))
-                                  ],
-                                ),
-                              );
+                              return CustomContainer(
+                                  model.myList[index],
+                                  model.priority[index],
+                                  MediaQuery.of(context).size.width,
+                                  index);
                             })
                         : Container(),
                   ),
@@ -86,13 +52,6 @@ class HomePage extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class ListViewCustom extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return null;
   }
 }
 
